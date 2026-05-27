@@ -4,7 +4,7 @@ Landing page moderna e responsiva para clínicas de saúde/psicologia, desenvolv
 
 ## ✨ Demonstração
 
-![Preview da Landing Page](https://via.placeholder.com/800x450?text=AlphaMec+Landing+Page)
+...
 
 ## 📋 Funcionalidades
 
