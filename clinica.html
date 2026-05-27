@@ -1,575 +1,703 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>AlphaMec - Clínica de Saúde & Equilíbrio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Clínica de Saúde & Equilíbrio — Psicologia e bem-estar emocional em Araraquara. Agende sua consulta." />
+    <title>Clínica de Saúde & Equilíbrio</title>
 
-    <!-- CSS (colocar em um arquivo fora do html) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap"
+        rel="stylesheet" />
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sage: {
+                            50: '#f3f7f4',
+                            100: '#e3ede6',
+                            200: '#c4d9c9',
+                            300: '#9bbfa4',
+                            400: '#6b9e77',
+                            500: '#4a7f58',
+                            600: '#3a6646',
+                            700: '#2f5239',
+                            800: '#27432f',
+                            900: '#1e3323',
+                        },
+                        cream: {
+                            50: '#fdfcf8',
+                            100: '#f7f4ec',
+                            200: '#ede8d6',
+                            300: '#dfd8c0',
+                            400: '#cfc4a3',
+                            500: '#b8a882',
+                        },
+                        teal: {
+                            400: '#4db8a4',
+                            500: '#3a9e8c',
+                            600: '#2e8070',
+                        },
+                    },
+                    fontFamily: {
+                        display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+                        body: ['"DM Sans"', 'sans-serif'],
+                    },
+                },
+            },
+        };
+    </script>
 
-        body {
-            font-family: system-ui, 'Segoe UI', 'Helvetica Neue', sans-serif;
-            background: #f9fafb;
-            color: #1f2937;
-            line-height: 1.5;
-            scroll-behavior: smooth;
-            padding-top: 70px;
-        }
-
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            z-index: 1001;
-            padding: 0.75rem 1.5rem;
-            backdrop-filter: blur(2px);
-            transition: all 0.3s;
-        }
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        .logo-nav {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-weight: bold;
-            font-size: 1.3rem;
-            color: #0b3b5f;
-        }
-        .logo-placeholder {
-            width: 40px;
-            height: 40px;
-            background-color: #000000; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px; 
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-        .logo-placeholder img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            display: block;
-        }
-        .logo-placeholder .temp-placeholder-icon {
-            color: rgba(255,255,255,0.3);
-            font-size: 1.2rem;
-        }
-        .logo-text {
-            font-size: 1.3rem;
-            font-weight: 700;
-        }
-        .nav-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem 1rem;
-            list-style: none;
-        }
-        .nav-links li a {
-            text-decoration: none;
-            color: #1e293b;
-            font-weight: 500;
-            padding: 0.4rem 0.8rem;
-            border-radius: 2rem;
-            transition: 0.2s;
-            font-size: 0.9rem;
-        }
-        .nav-links li a:hover {
-            background-color: #e6f0f5;
-            color: #1e6f5c;
-        }
-        .nav-whatsapp {
-            background-color: #25D366;
-            color: white;
-            padding: 0.4rem 1rem;
-            border-radius: 2rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            text-decoration: none;
-        }
-        .nav-whatsapp:hover {
-            background-color: #128C7E;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1.5rem;
-        }
-
-        section {
-            background: white;
-            margin-bottom: 1.5rem;
-            border-radius: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            scroll-margin-top: 80px;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 2rem;
-            padding-top: 1rem;
-        }
-        .section-header h2 {
-            font-size: 1.8rem;
-            color: #0b3b5f;
-            margin-bottom: 0.5rem;
-        }
-        .section-header p {
-            color: #4b5563;
-        }
-
-        .services-grid, .team-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            justify-content: center;
-        }
-        .service-card, .team-card {
-            background: #ffffff;
-            border-radius: 1rem;
-            padding: 1.5rem;
-            flex: 1 1 280px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            border: 1px solid #e5e7eb;
-            text-align: center;
-        }
-        .service-card i, .team-card i {
-            font-size: 2.5rem;
-            color: #2c7da0;
-            margin-bottom: 1rem;
-        }
-        .service-card h3, .team-card h3 {
-            font-size: 1.3rem;
-            margin: 0.5rem 0;
-        }
-
-        .hours-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            border-radius: 1rem;
-            overflow: hidden;
-        }
-        .hours-table th, .hours-table td {
-            padding: 0.75rem;
-            text-align: left;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        .hours-table th {
-            background-color: #eef2ff;
-            font-weight: 600;
-        }
-
-        .map-container {
-            border-radius: 1rem;
-            overflow: hidden;
-            margin: 1.5rem 0;
-        }
-        iframe {
-            width: 100%;
-            height: 350px;
-            border: 0;
-        }
-
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .contact-form input, .contact-form select, .contact-form textarea {
-            padding: 0.8rem;
-            border: 1px solid #cbd5e1;
-            border-radius: 0.75rem;
-            font-family: inherit;
-            font-size: 1rem;
-        }
-        .contact-form button {
-            background-color: #25D366;
-            color: white;
-            border: none;
-            padding: 0.8rem;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 2rem;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .contact-form button:hover {
-            background-color: #128C7E;
-        }
-
-        .whatsapp-float {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            background-color: #25D366;
-            color: white;
-            border-radius: 50px;
-            padding: 12px 20px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-decoration: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            z-index: 1000;
-            transition: 0.2s;
-        }
-        .whatsapp-float i {
-            font-size: 1.6rem;
-        }
-        .whatsapp-float:hover {
-            background-color: #128C7E;
-            transform: scale(1.02);
-        }
-
-        .hero {
-            background: linear-gradient(135deg, #d9eaf5, #ffffff);
-            text-align: center;
-            padding: 3rem 1.5rem;
-            border-radius: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-        .hero h1 {
-            font-size: 2.5rem;
-            color: #0b3b5f;
-        }
-        .hero-buttons {
-            margin-top: 1.5rem;
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .btn-whatsapp, .btn-outline {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background-color: #25D366;
-            color: white;
-            padding: 0.75rem 1.8rem;
-            border-radius: 2rem;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid #2c7da0;
-            color: #2c7da0;
-        }
-        footer {
-            text-align: center;
-            padding: 1.5rem;
-            font-size: 0.8rem;
-            color: #6c757d;
-            border-top: 1px solid #e2e8f0;
-            margin-top: 2rem;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding-top: 110px;
-            }
-            .nav-container {
-                flex-direction: column;
-                align-items: center;
-            }
-            .nav-links {
-                justify-content: center;
-            }
-            .container {
-                padding: 1rem;
-            }
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            .logo-placeholder {
-                width: 32px;
-                height: 32px;
-            }
-            .logo-text {
-                font-size: 1.1rem;
-            }
-        }
-        @media (max-width: 480px) {
-            .nav-links li a {
-                font-size: 0.75rem;
-                padding: 0.3rem 0.6rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
 
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo-nav">
-                <div class="logo-placeholder" id="logoPlaceholder">
-                    <i class="fas fa-image temp-placeholder-icon" style="font-size: 1.2rem;"></i>
+<body class="relative">
+
+    <header id="navbar" role="banner">
+        <nav class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between" aria-label="Navegação principal">
+
+            <a href="#inicio" class="flex items-center gap-3 group" aria-label="Ir para o início">
+                <div class="w-12 h-12 rounded-full border-2 border-teal-400 flex items-center justify-center bg-white shadow-sm group-hover:shadow-md transition-shadow"
+                    aria-hidden="true">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4db8a4" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" />
+                        <path d="M12 8v4l3 3" />
+                    </svg>
                 </div>
-                <span class="logo-text">AlphaMec</span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#home"><i class="fas fa-home"></i> Início</a></li>
-                <li><a href="#servicos"><i class="fas fa-stethoscope"></i> Serviços</a></li>
-                <li><a href="#equipe"><i class="fas fa-users"></i> Equipe</a></li>
-                <li><a href="#horarios"><i class="far fa-clock"></i> Horários</a></li>
-                <li><a href="#localizacao"><i class="fas fa-map-marker-alt"></i> Localização</a></li>
-                <li><a href="#contato"><i class="fas fa-comment-dots"></i> Contato</a></li>
-            </ul>
-            <a href="https://wa.me/5516996305811?text=Olá! Gostaria de agendar uma consulta na AlphaMec." class="nav-whatsapp" target="_blank">
-                <i class="fab fa-whatsapp"></i> WhatsApp
+                <div>
+                    <p class="font-display text-lg font-semibold leading-tight text-sage-800">
+                        Clínica Saúde<br />
+                        <span class="text-teal-400">&amp; Equilíbrio</span>
+                    </p>
+                </div>
             </a>
+
+            <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-sage-800" role="list">
+                <li><a href="#servicos" class="hover:text-teal-500 transition-colors">Serviços</a></li>
+                <li><a href="#equipe" class="hover:text-teal-500 transition-colors">Equipe</a></li>
+                <li><a href="#horarios" class="hover:text-teal-500 transition-colors">Funcionamento</a></li>
+                <li><a href="#localizacao" class="hover:text-teal-500 transition-colors">Localização</a></li>
+                <li>
+                    <a href="#contato" class="btn-primary py-2 px-5 text-sm">
+                        Agendar consulta
+                    </a>
+                </li>
+            </ul>
+
+            <button id="menu-btn" aria-label="Abrir menu de navegação" aria-expanded="false" aria-controls="mobile-menu"
+                class="md:hidden flex flex-col gap-[5px] p-2">
+                <span class="block w-6 h-0.5 bg-sage-800 rounded transition-all"></span>
+                <span class="block w-6 h-0.5 bg-sage-800 rounded transition-all"></span>
+                <span class="block w-4 h-0.5 bg-sage-800 rounded transition-all"></span>
+            </button>
+        </nav>
+    </header>
+
+    <div id="mobile-menu" role="dialog" aria-label="Menu de navegação" aria-modal="true"
+        class="fixed inset-0 z-50 flex flex-col bg-cream-50">
+
+        <div class="flex items-center justify-between px-6 py-4">
+            <p class="font-display text-lg font-semibold text-sage-800">
+                Clínica Saúde &amp; Equilíbrio
+            </p>
+            <button id="menu-close" aria-label="Fechar menu" class="p-2">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    aria-hidden="true">
+                    <path d="M18 6 6 18M6 6l12 12" />
+                </svg>
+            </button>
         </div>
-    </nav>
 
-    <a href="https://wa.me/5516996305811?text=Olá! Gostaria de mais informações sobre os serviços da AlphaMec." class="whatsapp-float" target="_blank">
-        <i class="fab fa-whatsapp"></i> Fale conosco
-    </a>
-
-    <div class="container">
-        <section id="home">
-            <div class="hero">
-                <h1>✨ Transforme sua saúde com equilíbrio</h1>
-                <p style="font-size: 1.2rem; margin-top: 0.5rem; color: #2c3e50;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                <div class="hero-buttons">
-                    <a href="https://wa.me/5516996305811?text=Olá! Gostaria de agendar uma consulta na AlphaMec." class="btn-whatsapp" target="_blank">
-                        <i class="fab fa-whatsapp"></i> Agendar pelo WhatsApp
-                    </a>
-                    <a href="#servicos" class="btn-outline">Saiba mais</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="servicos">
-            <div class="section-header">
-                <h2>⭐ O que oferecemos</h2>
-                <p>Conheça nossos serviços personalizados para seu bem-estar</p>
-            </div>
-            <div class="services-grid" style="padding: 0 1rem 2rem 1rem;">
-                <div class="service-card">
-                    <i class="fas fa-brain"></i>
-                    <h3>Nome Serviço 01</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et.</p>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-heartbeat"></i>
-                    <h3>Nome Serviço 02</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et.</p>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-hand-holding-heart"></i>
-                    <h3>Nome Serviço 03</h3>
-                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="equipe">
-            <div class="section-header">
-                <h2>👩‍⚕️ Nossa equipe</h2>
-                <p>Profissionais dedicados à sua jornada de autocuidado</p>
-            </div>
-            <div class="team-grid" style="padding: 0 1rem 2rem 1rem;">
-                <div class="team-card">
-                    <i class="fas fa-user-md"></i>
-                    <h3>Dra. Ana Beatriz</h3>
-                    <p>CRP 12/34567</p>
-                    <p>Especialidade: Psicologia Clínica - Formação: PUC - Foco: Ansiedade</p>
-                </div>
-                <div class="team-card">
-                    <i class="fas fa-user-nurse"></i>
-                    <h3>Dr. Carlos Mendes</h3>
-                    <p>CRM 98/765432</p>
-                    <p>Psiquiatria - Neurociências - Transtornos de humor</p>
-                </div>
-                <div class="team-card">
-                    <i class="fas fa-chalkboard-user"></i>
-                    <h3>Dra. Fernanda Lopes</h3>
-                    <p>CRP 21/987654</p>
-                    <p>Terapia Ocupacional - Reabilitação neurofuncional</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="horarios">
-            <div class="section-header">
-                <h2>🕒 Horários de atendimento</h2>
-                <p>Funcionamos todos os dias da semana, inclusive finais de semana</p>
-            </div>
-            <div style="overflow-x: auto; padding: 0 1rem 2rem 1rem;">
-                <table class="hours-table">
-                    <thead><tr><th>DIA</th><th>HORÁRIOS</th></tr></thead>
-                    <tbody>
-                        <tr><td>Segunda-feira</td><td>08h - 18h</td></tr>
-                        <tr><td>Terça-feira</td><td>08h - 18h</td></tr>
-                        <tr><td>Quarta-feira</td><td>08h - 18h</td></tr>
-                        <tr><td>Quinta-feira</td><td>08h - 18h</td></tr>
-                        <tr><td>Sexta-feira</td><td>08h - 18h</td></tr>
-                        <tr><td>Sábado</td><td>08h - 18h</td></tr>
-                        <tr><td>Domingo</td><td>08h - 18h</td></tr>
-                    </tbody>
-                </table>
-                <p style="margin-top: 1rem; font-size: 0.9rem;"><i class="fas fa-phone-alt"></i> Telefone / WhatsApp: (16) 99630-5811 | contato@exemplo.com</p>
-            </div>
-        </section>
-        
-        <section id="localizacao">
-            <div class="section-header">
-                <h2>📍 Onde estamos</h2>
-                <p>Venha nos visitar e conhecer nosso espaço acolhedor</p>
-            </div>
-            <div style="padding: 0 1rem 1rem 1rem;">
-                <div class="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.097411936043!2d-46.65638378447513!3d-23.56461618467736!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0xd59f9431f2c9776a!2sAv.%20Paulista%2C%20S%C3%A3o%20Paulo%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1712274594384!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy"></iframe>
-                </div>
-                <div style="background: #f1f5f9; padding: 1rem; border-radius: 1rem;">
-                    <p><i class="fas fa-map-marker-alt"></i> <strong>Rua NOME DA RUA, Número 123 - Bairro, Cidade - SP</strong><br>Informações adicionais: Estacionamento conveniado, acessibilidade total.</p>
-                    <p><i class="fas fa-clock"></i> Sessões presenciais e online, consulte disponibilidade.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="contato">
-            <div class="section-header">
-                <h2>📞 Agende sua consulta</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </div>
-            <div style="padding: 0 1.5rem 2rem 1.5rem;">
-                <div style="text-align: center; margin-bottom: 1.5rem;">
-                    <a href="https://wa.me/5516996305811?text=Olá! Gostaria de agendar uma consulta na clínica." class="btn-whatsapp" style="display: inline-flex; background-color:#25D366;" target="_blank">
-                        <i class="fab fa-whatsapp"></i> Chamar no WhatsApp
-                    </a>
-                </div>
-                <p style="text-align: center; margin-bottom: 1rem;">Ou deixe seus dados e retornamos via WhatsApp:</p>
-                <form id="whatsappForm" class="contact-form">
-                    <input type="text" id="nome" placeholder="NOME COMPLETO" required>
-                    <input type="tel" id="telefone" placeholder="WHATSAPP/TELEFONE (com DDD)" required>
-                    <input type="email" id="email" placeholder="EMAIL">
-                    <select id="servicoInteresse" required>
-                        <option value="">SERVIÇO DE INTERESSE</option>
-                        <option value="Nome Serviço 01">Nome Serviço 01</option>
-                        <option value="Nome Serviço 02">Nome Serviço 02</option>
-                        <option value="Avaliação psicológica">Avaliação psicológica</option>
-                        <option value="Terapia em grupo">Terapia em grupo</option>
-                    </select>
-                    <textarea id="mensagem" rows="3" placeholder="MENSAGEM (OPCIONAL) - Conte brevemente o que você busca..."></textarea>
-                    <button type="submit" id="submitBtn"><i class="fab fa-whatsapp"></i> Enviar via WhatsApp</button>
-                </form>
-                <p style="font-size: 0.75rem; text-align: center; margin-top: 1rem;">Ao enviar, você será redirecionado ao WhatsApp com uma mensagem pré-preenchida.</p>
-            </div>
-        </section>
-
-        <footer>
-            <p><strong>AlphaMec Clínica</strong> | Slogan da clínica: "Equilíbrio que transforma vidas"</p>
-            <p>© 2025 Espaço Equilíbrio • Política de Privacidade</p>
-            <p><i class="fab fa-instagram"></i> @alphamec.saude  <i class="fab fa-facebook"></i> /alphamec  <i class="fab fa-linkedin"></i> company/alphamec</p>
-        </footer>
+        <nav class="flex flex-col items-center justify-center flex-1 gap-8" aria-label="Menu mobile">
+            <a href="#servicos" class="font-display text-3xl italic text-sage-800">O que oferecemos</a>
+            <a href="#equipe" class="font-display text-3xl italic text-sage-800">Quem somos</a>
+            <a href="#horarios" class="font-display text-3xl italic text-sage-800">Funcionamento</a>
+            <a href="#localizacao" class="font-display text-3xl italic text-sage-800">Onde estamos</a>
+            <a href="#contato" class="font-display text-3xl italic text-teal-400">Fale conosco</a>
+        </nav>
     </div>
 
-        <!-- JavaScript (colocar em um arquivo fora do html) -->
+    <main>
 
-    <script>
-        window.setClinicLogo = function(imageUrl) {
-            const logoContainer = document.getElementById('logoPlaceholder');
-            if (logoContainer && imageUrl) {
-                logoContainer.innerHTML = '';
-                const img = document.createElement('img');
-                img.src = imageUrl;
-                img.alt = 'Logo AlphaMec';
-                img.style.width = '100%';
-                img.style.height = '100%';
-                img.style.objectFit = 'contain';
-                logoContainer.appendChild(img);
-            }
-        };
-        
-        const phoneNumber = "5516996305811";
-        const form = document.getElementById("whatsappForm");
-        
-        if(form) {
-            form.addEventListener("submit", function(event) {
-                event.preventDefault();
-                
-                const nome = document.getElementById("nome").value.trim();
-                const telefone = document.getElementById("telefone").value.trim();
-                const email = document.getElementById("email").value.trim();
-                const servico = document.getElementById("servicoInteresse").value;
-                const mensagemOpcional = document.getElementById("mensagem").value.trim();
-                
-                if (!nome) {
-                    alert("Por favor, preencha o NOME COMPLETO.");
-                    return;
-                }
-                if (!telefone) {
-                    alert("Por favor, informe seu WhatsApp/Telefone para contato.");
-                    return;
-                }
-                if (!servico) {
-                    alert("Selecione o serviço de interesse.");
-                    return;
-                }
-                
-                let texto = `*Novo contato - Site AlphaMec*%0A%0A` +
-                            `*Nome:* ${encodeURIComponent(nome)}%0A` +
-                            `*Telefone:* ${encodeURIComponent(telefone)}%0A` +
-                            `*E-mail:* ${encodeURIComponent(email || "Não informado")}%0A` +
-                            `*Serviço de interesse:* ${encodeURIComponent(servico)}%0A`;
-                if (mensagemOpcional) {
-                    texto += `*Mensagem:* ${encodeURIComponent(mensagemOpcional)}%0A`;
-                }
-                texto += `%0A*Solicito agendamento ou retorno.*`;
-                
-                const whatsappLink = `https://wa.me/${phoneNumber}?text=${texto}`;
-                window.open(whatsappLink, '_blank');
-                alert("Mensagem preparada! Você será redirecionado ao WhatsApp para concluir o envio.");
-            });
-        }
-        
-        document.querySelectorAll('.nav-links a, .btn-outline[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const targetId = this.getAttribute('href');
-                if (targetId && targetId !== '#') {
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        e.preventDefault();
-                        const offset = 80;
-                        const elementPosition = targetElement.getBoundingClientRect().top;
-                        const offsetPosition = elementPosition + window.pageYOffset - offset;
-                        window.scrollTo({
-                            top: offsetPosition,
-                            behavior: "smooth"
-                        });
-                    }
-                }
-            });
-        });
-    </script>
+        <section id="inicio" aria-labelledby="hero-heading" class="relative min-h-screen flex flex-col justify-center overflow-hidden
+                    px-6 pt-24 pb-16 bg-gradient-to-br from-sage-50 via-cream-100 to-sage-100">
+
+            <div class="hero-blob w-72 h-72 -top-16 -right-16 bg-teal-400" aria-hidden="true"></div>
+            <div class="hero-blob w-56 h-56 bottom-12 -left-12 bg-sage-200" style="animation-delay: -4s"
+                aria-hidden="true"></div>
+
+            <div class="relative z-10 w-full max-w-3xl mx-auto text-center flex flex-col items-center">
+
+                <span class="section-label reveal">Psicologia &amp; Bem-estar</span>
+
+                <h1 id="hero-heading" class="font-display text-5xl md:text-6xl font-light leading-tight mt-2
+                   text-sage-800 reveal reveal-delay-1">
+                    Cuidar da sua<br />
+                    <em class="font-medium text-teal-400">saúde mental</em><br />
+                    é um ato de amor
+                </h1>
+
+                <p class="mt-6 text-base font-light leading-relaxed max-w-md
+                  text-sage-600 reveal reveal-delay-2">
+                    Um espaço acolhedor para você encontrar equilíbrio, autoconhecimento e bem-estar.
+                    Nossa equipe de psicólogos especializados está pronta para caminhar ao seu lado.
+                </p>
+
+                <div class="mt-8 flex flex-col sm:flex-row gap-4 reveal reveal-delay-3">
+                    <a href="https://wa.me/5516996305811" target="_blank" rel="noopener noreferrer" class="btn-primary"
+                        aria-label="Agendar consulta pelo WhatsApp">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                            <path
+                                d="M12 0C5.373 0 0 5.373 0 12c0 2.125.554 4.122 1.524 5.855L.057 23.925c-.07.307.228.597.532.515l6.28-1.649A11.938 11.938 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.811 9.811 0 0 1-5.032-1.387l-.36-.214-3.733.98.996-3.648-.234-.374A9.816 9.816 0 0 1 2.182 12C2.182 6.575 6.575 2.182 12 2.182S21.818 6.575 21.818 12 17.425 21.818 12 21.818z" />
+                        </svg>
+                        Agendar pelo WhatsApp
+                    </a>
+
+                    <a href="#servicos" class="btn-outline" aria-label="Conhecer os serviços">
+                        Conheça nossos serviços
+                    </a>
+                </div>
+            </div>
+
+            <a href="#servicos" class="absolute bottom-8 inset-x-0 mx-auto w-fit flex flex-col items-center gap-1
+          opacity-50 hover:opacity-80 transition-opacity scroll-arrow" aria-label="Rolar para a próxima seção">
+                <span class="text-xs font-body text-sage-800">O que oferecemos</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    aria-hidden="true" class="text-sage-800">
+                    <path d="m6 9 6 6 6-6" />
+                </svg>
+            </a>
+        </section>
+
+        <section id="servicos" aria-labelledby="servicos-heading" class="py-24 px-6 bg-cream-100">
+            <div class="max-w-2xl mx-auto">
+
+                <span class="section-label reveal">O que oferecemos</span>
+                <h2 id="servicos-heading" class="font-display text-4xl md:text-5xl font-light mt-1 text-sage-800
+                   reveal reveal-delay-1">
+                    Nossos serviços
+                </h2>
+                <p class="mt-4 text-base font-light leading-relaxed text-sage-600
+                  reveal reveal-delay-2">
+                    Oferecemos atendimento humanizado e especializado, adaptado às necessidades únicas de cada pessoa.
+                    Nossa abordagem integra diferentes linhas teóricas para proporcionar o cuidado mais efetivo para
+                    você.
+                </p>
+
+                <div class="mt-12 flex flex-col gap-6">
+
+                    <article class="service-card p-7 reveal reveal-delay-1">
+                        <div class="icon-circle mb-4" aria-hidden="true">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4db8a4"
+                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                <circle cx="9" cy="7" r="4" />
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                            </svg>
+                        </div>
+                        <h3 class="font-display text-2xl font-medium mb-2 text-sage-800">
+                            Psicoterapia Individual
+                        </h3>
+                        <p class="text-sm font-light leading-relaxed text-sage-500">
+                            Sessões individuais com foco no autoconhecimento, desenvolvimento pessoal e superação de
+                            desafios
+                            emocionais. Trabalhamos ansiedade, depressão, traumas e questões existenciais em um ambiente
+                            seguro e acolhedor.
+                        </p>
+                    </article>
+
+                    <article class="service-card p-7 reveal reveal-delay-2">
+                        <div class="icon-circle mb-4" aria-hidden="true">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4db8a4"
+                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                            </svg>
+                        </div>
+                        <h3 class="font-display text-2xl font-medium mb-2 text-sage-800">
+                            Terapia de Casal
+                        </h3>
+                        <p class="text-sm font-light leading-relaxed text-sage-500">
+                            Suporte especializado para casais que buscam melhorar a comunicação, resolver conflitos e
+                            fortalecer o vínculo afetivo. Também atendemos casais em processo de separação consciente.
+                        </p>
+                    </article>
+
+                    <article class="service-card p-7 reveal reveal-delay-3">
+                        <div class="icon-circle mb-4" aria-hidden="true">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4db8a4"
+                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M12 8v4l3 3" />
+                            </svg>
+                        </div>
+                        <h3 class="font-display text-2xl font-medium mb-2 text-sage-800">
+                            Avaliação Psicológica
+                        </h3>
+                        <p class="text-sm font-light leading-relaxed text-sage-500">
+                            Processos avaliativos com instrumentos validados para mapeamento de perfil cognitivo,
+                            emocional
+                            e comportamental. Laudos e pareceres para fins clínicos, escolares e laborais.
+                        </p>
+                    </article>
+
+                    <article class="service-card p-7 reveal reveal-delay-4">
+                        <div class="icon-circle mb-4" aria-hidden="true">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4db8a4"
+                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                                <polyline points="9 22 9 12 15 12 15 22" />
+                            </svg>
+                        </div>
+                        <h3 class="font-display text-2xl font-medium mb-2 text-sage-800">
+                            Atendimento Online
+                        </h3>
+                        <p class="text-sm font-light leading-relaxed text-sage-500">
+                            Consultas por videochamada com a mesma qualidade e sigilo do atendimento presencial.
+                            Ideal para quem busca flexibilidade ou prefere o conforto de casa para suas sessões.
+                        </p>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="equipe" aria-labelledby="equipe-heading" class="py-24 px-6 bg-cream-50">
+            <div class="max-w-2xl mx-auto">
+
+                <span class="section-label reveal">Quem somos</span>
+                <h2 id="equipe-heading" class="font-display text-4xl md:text-5xl font-light mt-1 text-sage-800
+                   reveal reveal-delay-1">
+                    Nossa equipe
+                </h2>
+                <p class="mt-4 text-base font-light leading-relaxed text-sage-600
+                  reveal reveal-delay-2">
+                    Profissionais comprometidos com a ética, o cuidado humanizado e a atualização constante.
+                    Cada membro da equipe traz uma abordagem única para enriquecer seu processo terapêutico.
+                </p>
+
+                <div class="mt-12 flex flex-col gap-6">
+
+                    <article class="team-card reveal reveal-delay-1">
+                        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 p-7">
+                            <div class="avatar-placeholder w-28 h-28 rounded-full flex-shrink-0" role="img"
+                                aria-label="Foto da Dra. Ana Carvalho">
+                                <svg width="44" height="44" viewBox="0 0 24 24" fill="none"
+                                    stroke="rgba(255,255,255,0.7)" stroke-width="1.5" aria-hidden="true">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                    <circle cx="12" cy="7" r="4" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-display text-2xl font-semibold text-sage-800">
+                                    Dra. Ana Carvalho
+                                </h3>
+                                <p class="text-sm font-medium mt-1 text-teal-400">CRP 06/123456</p>
+                                <p class="text-xs mt-1 font-light text-sage-500">
+                                    Psicóloga Clínica · Mestre em Saúde Mental · Especialista em TCC
+                                </p>
+                                <p class="text-sm mt-3 font-light leading-relaxed text-sage-600">
+                                    Com 12 anos de experiência em psicoterapia, Ana é especialista em ansiedade, burnout
+                                    e
+                                    transtornos de humor. Sua abordagem acolhedora cria um espaço seguro para o processo
+                                    terapêutico.
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="team-card reveal reveal-delay-2">
+                        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 p-7">
+                            <div class="avatar-placeholder w-28 h-28 rounded-full flex-shrink-0" role="img"
+                                aria-label="Foto do Dr. Rafael Moura">
+                                <svg width="44" height="44" viewBox="0 0 24 24" fill="none"
+                                    stroke="rgba(255,255,255,0.7)" stroke-width="1.5" aria-hidden="true">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                    <circle cx="12" cy="7" r="4" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-display text-2xl font-semibold text-sage-800">
+                                    Dr. Rafael Moura
+                                </h3>
+                                <p class="text-sm font-medium mt-1 text-teal-400">CRP 06/654321</p>
+                                <p class="text-xs mt-1 font-light text-sage-500">
+                                    Psicólogo Clínico · Especialista em Terapia de Casal · Psicodrama
+                                </p>
+                                <p class="text-sm mt-3 font-light leading-relaxed text-sage-600">
+                                    Rafael atua há 9 anos com foco em relacionamentos interpessoais e dinâmicas
+                                    familiares.
+                                    Combina abordagens psicodinâmicas e humanistas para um atendimento profundo e
+                                    transformador.
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="team-card reveal reveal-delay-3">
+                        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 p-7">
+                            <div class="avatar-placeholder w-28 h-28 rounded-full flex-shrink-0" role="img"
+                                aria-label="Foto da Dra. Beatriz Lima">
+                                <svg width="44" height="44" viewBox="0 0 24 24" fill="none"
+                                    stroke="rgba(255,255,255,0.7)" stroke-width="1.5" aria-hidden="true">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                    <circle cx="12" cy="7" r="4" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-display text-2xl font-semibold text-sage-800">
+                                    Dra. Beatriz Lima
+                                </h3>
+                                <p class="text-sm font-medium mt-1 text-teal-400">CRP 06/789012</p>
+                                <p class="text-xs mt-1 font-light text-sage-500">
+                                    Neuropsicóloga · Doutora em Neurociências · Avaliação Psicológica
+                                </p>
+                                <p class="text-sm mt-3 font-light leading-relaxed text-sage-600">
+                                    Especialista em avaliação neuropsicológica e reabilitação cognitiva. Beatriz
+                                    trabalha com
+                                    diagnóstico diferencial de TDAH, TEA e transtornos de aprendizagem em crianças e
+                                    adultos.
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="horarios" aria-labelledby="horarios-heading" class="py-24 px-6 bg-cream-100">
+            <div class="max-w-2xl mx-auto">
+
+                <span class="section-label reveal">Funcionamento</span>
+                <h2 id="horarios-heading" class="font-display text-4xl md:text-5xl font-light mt-1 text-sage-800
+                   reveal reveal-delay-1">
+                    Horários de atendimento
+                </h2>
+
+                <div class="mt-10 rounded-2xl overflow-hidden shadow-sm border border-cream-200
+                    reveal reveal-delay-2">
+                    <table class="hours-table w-full border-collapse"
+                        aria-label="Tabela de horários de funcionamento da clínica">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="text-left">DIA</th>
+                                <th scope="col" class="text-right">HORÁRIO</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Segunda-feira</td>
+                                <td class="text-right font-medium">08h – 18h</td>
+                            </tr>
+                            <tr>
+                                <td>Terça-feira</td>
+                                <td class="text-right font-medium">08h – 18h</td>
+                            </tr>
+                            <tr>
+                                <td>Quarta-feira</td>
+                                <td class="text-right font-medium">08h – 18h</td>
+                            </tr>
+                            <tr>
+                                <td>Quinta-feira</td>
+                                <td class="text-right font-medium">08h – 18h</td>
+                            </tr>
+                            <tr>
+                                <td>Sexta-feira</td>
+                                <td class="text-right font-medium">08h – 18h</td>
+                            </tr>
+                            <tr>
+                                <td>Sábado</td>
+                                <td class="text-right font-medium">08h – 13h</td>
+                            </tr>
+                            <tr>
+                                <td class="text-gray-400">Domingo</td>
+                                <td class="text-right text-gray-400">Fechado</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="font-display text-2xl font-light mt-12 mb-5 text-sage-800 reveal reveal-delay-1">
+                    Entre em contato
+                </h3>
+
+                <div class="flex flex-col gap-4">
+
+                    <a href="https://wa.me/5516996305811" target="_blank" rel="noopener noreferrer"
+                        class="contact-card reveal reveal-delay-1" aria-label="Abrir WhatsApp">
+                        <div class="icon-circle" aria-hidden="true">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="#4db8a4" aria-hidden="true">
+                                <path
+                                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                                <path
+                                    d="M12 0C5.373 0 0 5.373 0 12c0 2.125.554 4.122 1.524 5.855L.057 23.925c-.07.307.228.597.532.515l6.28-1.649A11.938 11.938 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.811 9.811 0 0 1-5.032-1.387l-.36-.214-3.733.98.996-3.648-.234-.374A9.816 9.816 0 0 1 2.182 12C2.182 6.575 6.575 2.182 12 2.182S21.818 6.575 21.818 12 17.425 21.818 12 21.818z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-xs font-medium text-sage-300">Telefone / WhatsApp</p>
+                            <p class="text-sm font-medium text-teal-400">(16) 99630-5811</p>
+                        </div>
+                    </a>
+
+                    <a href="mailto:contato@saudeequilibrio.com.br" class="contact-card reveal reveal-delay-2"
+                        aria-label="Enviar e-mail">
+                        <div class="icon-circle" aria-hidden="true">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4db8a4"
+                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                <polyline points="22,6 12,13 2,6" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-xs font-medium text-sage-300">E-mail</p>
+                            <p class="text-sm font-medium text-teal-400">contato@saudeequilibrio.com.br</p>
+                        </div>
+                    </a>
+
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
+                        class="contact-card reveal reveal-delay-3" aria-label="Abrir Instagram">
+                        <div class="icon-circle" aria-hidden="true">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4db8a4"
+                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-xs font-medium text-sage-300">Instagram</p>
+                            <p class="text-sm font-medium text-teal-400">@clinica.saudeequilibrio</p>
+                        </div>
+                    </a>
+
+                    <div class="contact-card reveal reveal-delay-4">
+                        <div class="icon-circle" aria-hidden="true">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4db8a4"
+                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path
+                                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 14a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 3.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-xs font-medium text-sage-300">Sobre a sessão</p>
+                            <p class="text-sm font-light text-sage-600">
+                                Planos aceitos: Unimed, Bradesco Saúde e particular.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="localizacao" aria-labelledby="localizacao-heading" class="py-24 px-6 bg-cream-50">
+            <div class="max-w-2xl mx-auto">
+
+                <span class="section-label reveal">Onde estamos</span>
+                <h2 id="localizacao-heading" class="font-display text-4xl md:text-5xl font-light mt-1 text-sage-800
+                   reveal reveal-delay-1">
+                    Localização
+                </h2>
+
+                <div class="mt-8 reveal reveal-delay-2 rounded-3xl overflow-hidden shadow-sm border border-cream-200">
+                    <iframe src="https://www.google.com/maps?q=Araraquara+SP&output=embed" width="100%" height="380"
+                        style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                        aria-label="Mapa de localização da clínica">
+                    </iframe>
+                </div>
+
+                <div class="mt-8 reveal reveal-delay-3">
+                    <h3 class="font-display text-2xl font-light mb-4 text-sage-800">
+                        Venha nos visitar
+                    </h3>
+                    <div class="flex flex-col gap-3">
+                        <div class="flex items-start gap-3">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4db8a4"
+                                stroke-width="1.8" class="flex-shrink-0 mt-0.5" aria-hidden="true">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                <circle cx="12" cy="10" r="3" />
+                            </svg>
+                            <p class="text-sm font-light text-sage-600">
+                                Rua das Palmeiras, 456 — Sala 12, Centro, Araraquara – SP
+                            </p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4db8a4"
+                                stroke-width="1.8" class="flex-shrink-0 mt-0.5" aria-hidden="true">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M12 8v4l3 3" />
+                            </svg>
+                            <p class="text-sm font-light text-sage-600">
+                                Próximo ao Terminal Rodoviário Central · Estacionamento gratuito no local
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="contato" aria-labelledby="contato-heading" class="py-24 px-6 bg-cream-100">
+            <div class="max-w-2xl mx-auto">
+
+                <span class="section-label reveal">Fale conosco</span>
+                <h2 id="contato-heading" class="font-display text-4xl md:text-5xl font-light mt-1 text-sage-800
+                   reveal reveal-delay-1">
+                    Agende sua consulta
+                </h2>
+                <p class="mt-4 text-base font-light leading-relaxed text-sage-600
+                  reveal reveal-delay-2">
+                    Dar o primeiro passo é o ato mais corajoso. Preencha o formulário ou nos chame diretamente
+                    pelo WhatsApp. Nossa equipe retornará em até 24 horas úteis.
+                </p>
+
+                <div class="mt-8 reveal reveal-delay-2">
+                    <a href="https://wa.me/5516996305811" target="_blank" rel="noopener noreferrer"
+                        class="btn-whatsapp w-full" aria-label="Chamar no WhatsApp">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                            <path
+                                d="M12 0C5.373 0 0 5.373 0 12c0 2.125.554 4.122 1.524 5.855L.057 23.925c-.07.307.228.597.532.515l6.28-1.649A11.938 11.938 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.811 9.811 0 0 1-5.032-1.387l-.36-.214-3.733.98.996-3.648-.234-.374A9.816 9.816 0 0 1 2.182 12C2.182 6.575 6.575 2.182 12 2.182S21.818 6.575 21.818 12 17.425 21.818 12 21.818z" />
+                        </svg>
+                        Chamar no WhatsApp
+                    </a>
+                </div>
+
+                <div class="flex items-center gap-4 my-8 reveal reveal-delay-3">
+                    <div class="flex-1 h-px bg-cream-200"></div>
+                    <span class="text-xs font-medium text-sage-300">ou deixe seus dados</span>
+                    <div class="flex-1 h-px bg-cream-200"></div>
+                </div>
+
+                <div class="rounded-2xl p-8 shadow-sm border border-cream-200 bg-cream-50
+                    reveal reveal-delay-3">
+
+                    <form id="contact-form" novalidate aria-label="Formulário de agendamento de consulta">
+                        <div class="flex flex-col gap-5">
+
+                            <div>
+                                <label for="name"
+                                    class="block text-xs font-medium mb-2 tracking-wider uppercase text-sage-300">
+                                    Nome completo
+                                </label>
+                                <input type="text" id="name" name="name" autocomplete="name" required
+                                    placeholder="Seu nome" class="form-input" aria-required="true" />
+                            </div>
+
+                            <div>
+                                <label for="phone"
+                                    class="block text-xs font-medium mb-2 tracking-wider uppercase text-sage-300">
+                                    WhatsApp / Telefone
+                                </label>
+                                <input type="tel" id="phone" name="phone" autocomplete="tel" required
+                                    placeholder="(00) 00000-0000" class="form-input" aria-required="true" />
+                            </div>
+
+                            <div>
+                                <label for="email"
+                                    class="block text-xs font-medium mb-2 tracking-wider uppercase text-sage-300">
+                                    E-mail
+                                </label>
+                                <input type="email" id="email" name="email" autocomplete="email"
+                                    placeholder="seu@email.com" class="form-input" />
+                            </div>
+
+                            <div>
+                                <label for="service"
+                                    class="block text-xs font-medium mb-2 tracking-wider uppercase text-sage-300">
+                                    Serviço de interesse
+                                </label>
+                                <select id="service" name="service" class="form-input"
+                                    aria-label="Selecione o serviço de interesse">
+                                    <option value="" disabled selected>Selecione...</option>
+                                    <option value="individual">Psicoterapia Individual</option>
+                                    <option value="casal">Terapia de Casal</option>
+                                    <option value="avaliacao">Avaliação Psicológica</option>
+                                    <option value="online">Atendimento Online</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="message"
+                                    class="block text-xs font-medium mb-2 tracking-wider uppercase text-sage-300">
+                                    Mensagem
+                                    <span class="normal-case font-light">(opcional)</span>
+                                </label>
+                                <textarea id="message" name="message" rows="4"
+                                    placeholder="Conte brevemente o que você busca, o que você sente…"
+                                    class="form-input resize-none" aria-label="Mensagem opcional"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-primary w-full mt-2"
+                                aria-label="Enviar formulário de agendamento">
+                                Enviar mensagem
+                            </button>
+
+                        </div>
+                    </form>
+
+                    <div id="form-success" class="hidden text-center py-6" role="alert" aria-live="polite">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#4db8a4" stroke-width="1.5"
+                            class="mx-auto mb-3" aria-hidden="true">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg>
+                        <p class="font-display text-2xl text-sage-800">Mensagem enviada!</p>
+                        <p class="text-sm mt-2 font-light text-sage-500">
+                            Em breve entraremos em contato. Até logo!
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer role="contentinfo">
+        <div class="max-w-2xl mx-auto px-6 py-14 flex flex-col items-center text-center gap-4">
+
+            <div class="deco-line mx-auto mb-2" aria-hidden="true"></div>
+
+            <p class="font-display text-2xl font-light tracking-wide text-sage-100">
+                Clínica Saúde &amp; Equilíbrio
+            </p>
+            <p class="text-sm font-light text-sage-300">Cuidar de você é o que nos move</p>
+
+            <nav aria-label="Links do rodapé" class="flex flex-wrap justify-center gap-6 mt-2 text-xs text-sage-300">
+                <a href="#servicos" class="hover:text-teal-400 transition-colors">Serviços</a>
+                <a href="#equipe" class="hover:text-teal-400 transition-colors">Equipe</a>
+                <a href="#horarios" class="hover:text-teal-400 transition-colors">Funcionamento</a>
+                <a href="#localizacao" class="hover:text-teal-400 transition-colors">Localização</a>
+                <a href="#contato" class="hover:text-teal-400 transition-colors">Contato</a>
+            </nav>
+
+            <p class="text-xs mt-4 text-sage-500">
+                © 2026 Clínica de Saúde &amp; Equilíbrio ·
+                <a href="#" class="hover:text-teal-400 transition-colors underline underline-offset-2">
+                    Política de Privacidade
+                </a>
+            </p>
+
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+
 </body>
+
 </html>
